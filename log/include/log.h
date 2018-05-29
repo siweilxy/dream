@@ -59,15 +59,20 @@ namespace dream {
         src::logger lg;
     public:
         void init();
-        void Normal(std::string&& message);
-        void Warning(std::string&& message);
-        void Error(std::string&& message);
-        void Notification(std::string&& message);
+        void Normal(int line,std::string&& file,std::string&& message);
+        void Warning(int line,std::string&& file,std::string&& message);
+        void Error(int line,std::string&& file,std::string&& message);
+        void Notification(int line,std::string&& file,std::string&& message);
         void Critical(int line,std::string&& file,std::string&& message);
         static log* getInstance();
     };
 }
 
-#define ERROR_LOG(msg) dream::log::getInstance()->Critical(__LINE__,__FILE__,msg);
+#define ERROR_LOG(msg) dream::log::getInstance()->Error(__LINE__,__FILE__,msg);
+#define NORMAL_LOG(msg) dream::log::getInstance()->Normal(__LINE__,__FILE__,msg);
+#define WARNING_LOG(msg) dream::log::getInstance()->Warning(__LINE__,__FILE__,msg);
+#define NOTIFICATION_LOG(msg) dream::log::getInstance()->Notification(__LINE__,__FILE__,msg);
+#define CRITICAL_LOG(msg) dream::log::getInstance()->Critical(__LINE__,__FILE__,msg);
+
 
 #endif //DREAM_LOG_H

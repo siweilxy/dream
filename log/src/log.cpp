@@ -11,10 +11,15 @@ namespace dream{
 
         // The first thing we have to do to get using the library is
         // to set up the logging sinks - i.e. where the logs will be written to.
-        logging::add_console_log(std::clog, keywords::format = "%TimeStamp%: %Message%");
+        //logging::add_console_log(std::clog, keywords::format = "%TimeStamp%: %Message%");
+
+        logging::add_console_log(std::clog, keywords::format = expr::stream
+                << expr::format_date_time< boost::posix_time::ptime >("TimeStamp", "%Y-%m-%d %H:%M:%S.%f")
+                << " <" << expr::attr< severity_level >("Severity")
+                << "> " << expr::message);
 
         // One can also use lambda expressions to setup filters and formatters
-        logging::add_file_log
+       /* logging::add_file_log
                 (
                 "sample.log",
                 keywords::filter = expr::attr< severity_level >("Severity") >= warning,
@@ -30,9 +35,9 @@ namespace dream{
             % expr::format_date_time< attrs::timer::value_type >("Uptime", "%O:%M:%S")
             % expr::format_named_scope("Scope", keywords::format = "%n (%f:%l)")
             % expr::attr< severity_level >("Severity")
-            % expr::message*/
+            % expr::message
 
-        );
+        );*/
 
         // Also let's add some commonly used attributes, like timestamp and record counter.
         logging::add_common_attributes();
@@ -59,24 +64,24 @@ namespace dream{
         BOOST_LOG_SEV(slg, critical) <<file<<" "<<line<<" "<<message;
     }
 
-    void log::Notification(std::string&& message)
+    void log::Notification(int line,std::string&& file,std::string&& message)
     {
-        BOOST_LOG_SEV(slg, notification) << message;
+        BOOST_LOG_SEV(slg, notification)  <<file<<" "<<line<<" "<<message;;
     }
 
-    void log::Normal(std::string&& message)
+    void log::Normal(int line,std::string&& file,std::string&& message)
     {
-        BOOST_LOG_SEV(slg, normal) << message;
+        BOOST_LOG_SEV(slg, normal)  <<file<<" "<<line<<" "<<message;;
     }
 
-    void log::Error(std::string&& message)
+    void log::Error(int line,std::string&& file,std::string&& message)
     {
-        BOOST_LOG_SEV(slg, error) << message;
+        BOOST_LOG_SEV(slg, error)  <<file<<" "<<line<<" "<<message;;
     }
 
-    void log::Warning(std::string&& message)
+    void log::Warning(int line,std::string&& file,std::string&& message)
     {
-        BOOST_LOG_SEV(slg, warning) << message;
+        BOOST_LOG_SEV(slg, warning)  <<file<<" "<<line<<" "<<message;;
     }
 
     dream::log* log::getInstance()
