@@ -7,6 +7,7 @@
 
 #include "core.h"
 #include <arpa/inet.h>
+#include <string>
 namespace dreamMq {
 
     class mq {
@@ -18,13 +19,16 @@ namespace dreamMq {
 
         int socketfd;
         struct sockaddr_in serveraddr,clientaddr;
+        socklen_t len;
+        char message[BUF_SIZE];
+        char buf[BUF_SIZE];
+        pthread_t t;
 
     public:
         void init();
-
-        void pub();
-
+        void pub(std::string& message,int length);
         void sub();
+        void receive();
     };
 
 }

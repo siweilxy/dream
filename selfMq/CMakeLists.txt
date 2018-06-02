@@ -28,3 +28,4 @@ set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++11")
 
 message(${all_files})
 add_library(mq SHARED ${all_files})
+target_link_libraries(mq log)
