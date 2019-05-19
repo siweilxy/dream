@@ -7,6 +7,8 @@
 
 #include "system.h"
 #include "log.h"
+#include <sys/sysinfo.h>
+#include <string>
 
 namespace dream
 {
@@ -25,6 +27,10 @@ system::~system()
 void system::printSysInfo()
 {
     NORMAL_LOG("**********printSysInfo**********");
+    std::string msg = "cpu numbers is " + std::to_string(get_nprocs());
+
+    NORMAL_LOG(msg.c_str());
+
 }
 
 } /* namespace dream */
