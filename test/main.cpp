@@ -9,8 +9,9 @@ int main()
     mq.init();
     while(1){
         sleep(1);
-        std::string s ="1234567890";
-        mq.pub(s,s.size());
+        std::string s ="This text is red This text has default color";
+        ERROR_LOG(s.c_str());
+        //mq.pub(s,s.size());
     }
     return 0;
 }
