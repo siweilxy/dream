@@ -5,6 +5,7 @@ add_definitions(-DBOOST_LOG_DYN_LINK)
 set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++11")
 include_directories(log/include/)
 include_directories(selfMq/include/)
+include_directories(sys/include/)
 macro(source_group_by_dir source_files)
     set(sgbd_cur_dir ${CMAKE_CURRENT_SOURCE_DIR})
     foreach(sgbd_file ${${source_files}})
@@ -22,14 +23,13 @@ endmacro(source_group_by_dir)
 FILE(GLOB_RECURSE all_files
         test/*.h
         test/*.cpp
-        log/include/*.h
-        log/src/*.cpp
         )
 
 source_group(all_files)
 
 add_subdirectory(selfMq)
 add_subdirectory(log)
+add_subdirectory(sys)
 #add_executable(dream ${SOURCE_FILES})
 add_executable(gtest ${all_files})
-target_link_libraries(gtest log mq)
+target_link_libraries(gtest sys log mq)

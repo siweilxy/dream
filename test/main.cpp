@@ -1,5 +1,6 @@
 #include "log.h"
 #include "mq.h"
+#include "system.h"
 int main()
 {
     dream::log::getInstance()->init();
@@ -7,6 +8,8 @@ int main()
     NORMAL_LOG("NORMAL");
     dreamMq::mq mq;
     mq.init();
+    dream::system sys;
+    sys.printSysInfo();
     while(1){
         sleep(1);
         std::string s ="This text is red This text has default color";
