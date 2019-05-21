@@ -8,6 +8,8 @@
 #ifndef SYS_SYSTEM_H_
 #define SYS_SYSTEM_H_
 
+#include <string>
+#include <map>
 namespace dream
 {
 
@@ -16,8 +18,16 @@ class system
 public:
     system();
     ~system();
-public:
+
+private:
     void printSysInfo();
+    void master();
+    void child();
+    void father();
+private:
+    int cpus;
+    std::string filePath;
+    std::map<int, int> childs;
 };
 
 } /* namespace dream */
